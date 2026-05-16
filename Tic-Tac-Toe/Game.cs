@@ -75,7 +75,7 @@ public class Game
         //----------------- Print Players Name -----------------
         Console.ForegroundColor = ConsoleColor.Yellow;
         if (_gameMode.Pvp)
-            Console.WriteLine($"{_players[0].Username}[{_players[0].Sign}] -" +
+            Console.WriteLine($"{_players[0].Username}[{_players[0].Sign}] - " +
                               $"{_players[1].Username}[{_players[1].Sign}]");
         // else
             // Console.WriteLine($"{_players[0].Username}[{_players[0].Sign}] -" +
@@ -118,7 +118,7 @@ public class Game
 
         //----------------- Print Instructions -----------------
         Console.ForegroundColor = ConsoleColor.White;
-        Console.Write($"Use WASD to move, and Enter to place {_currentPlayer.Sign}, or ESC to quit");
+        Console.Write($"Use WASD to move, and Enter to place {_currentPlayer.Sign}, or Q to return to menu.");
         //------------------------------------------------------
 
         Console.ResetColor();
@@ -151,17 +151,17 @@ public class Game
         {
             _moves++;
 
-            if (_gameMode.Pvp && checkResults())
-            { 
-                _currentPlayer = _currentPlayer == _players[0] ? _players[1] : _players[0];
-            }
-            else
+            switch (_gameMode.Pvp)
             {
-                _computer.MakeMove(_grid);
-                
+                case true:
+                    if (!checkResults())
+                        return false;
+                    _currentPlayer = _currentPlayer == _players[0] ? _players[1] : _players[0];
+                    break;
+                case false:
+                    break;
             }
         }
-
         return true;
     }
 
@@ -171,7 +171,7 @@ public class Game
         {
             case ConsoleKey.Enter:
                 return HandleEnter();
-            case ConsoleKey.Escape:
+            case ConsoleKey.Q:
                 return false;
             default:
                 return _grid.HandleMove(key);
