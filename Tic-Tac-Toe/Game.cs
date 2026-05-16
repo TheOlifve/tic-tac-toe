@@ -2,17 +2,6 @@ namespace Tic_Tac_Toe;
 
 using aca_propsss.MenuLib;
 
-public class Computer
-{
-    public char Sign {  get; set; }
-
-    public bool MakeMove(Grid grid)
-    {
-        
-        return false;
-    }
-}
-
 public class GameMode
 {
     public bool Pvp { get; set; }
@@ -150,15 +139,19 @@ public class Game
         if (_grid.ChangeCell(_currentPlayer.Sign))
         {
             _moves++;
-
+            if (!checkResults())
+                return false;
+            
             switch (_gameMode.Pvp)
             {
                 case true:
-                    if (!checkResults())
-                        return false;
                     _currentPlayer = _currentPlayer == _players[0] ? _players[1] : _players[0];
                     break;
                 case false:
+                    _computer.MakeMove(_grid);
+                    _moves++;
+                    if (!checkResults())
+                        return false;
                     break;
             }
         }
