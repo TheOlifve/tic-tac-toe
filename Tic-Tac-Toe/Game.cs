@@ -107,7 +107,7 @@ public class Game
 
         //----------------- Print Instructions -----------------
         Console.ForegroundColor = ConsoleColor.White;
-        Console.Write($"Use WASD to move, and Enter to place {_currentPlayer.Sign}, or Q to return to menu.");
+        Console.Write($"Use arrows to move, and Enter to place {_currentPlayer.Sign}, or Q to return to menu.");
         //------------------------------------------------------
 
         Console.ResetColor();
